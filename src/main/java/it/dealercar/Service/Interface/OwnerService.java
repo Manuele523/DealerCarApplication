@@ -11,4 +11,11 @@ public interface OwnerService {
     List<OwnerEntity> findAll();
 
     List<CarOwnerEntity> findAllCarOfOwner(Long idOwner);
+
+    void insert(OwnerEntity mapToEntity);
+
+    void delete(Long idOwner);
+
+    void update(OwnerEntity mapToEntity);
+
 }

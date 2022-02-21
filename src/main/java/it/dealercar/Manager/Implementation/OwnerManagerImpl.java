@@ -28,4 +28,19 @@ public class OwnerManagerImpl implements OwnerManager {
         return ownerService.findAllCarOfOwner(idOwner).stream().map(CarOwnerMapper::mapToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public void insert(OwnerDTO owner) {
+        ownerService.insert(OwnerMapper.mapToEntity(owner));
+    }
+
+    @Override
+    public void delete(Long idOwner) {
+        ownerService.delete(idOwner);
+    }
+
+    @Override
+    public void update(OwnerDTO owner) {
+        ownerService.update(OwnerMapper.mapToEntity(owner));
+    }
+
 }

@@ -26,4 +26,19 @@ public class OwnerController {
         return ownerManager.findAllCarOfOwner(idOwner);
     }
 
+    @PostMapping("insert")
+    public void insert(@RequestBody OwnerDTO owner) {
+        ownerManager.insert(owner);
+    }
+
+    @DeleteMapping("delete")
+    public void delete(@RequestParam("id") Long idOwner) {
+        ownerManager.delete(idOwner);
+    }
+
+    @PutMapping("update")
+    public void update(@RequestBody OwnerDTO owner) {
+        ownerManager.update(owner);
+    }
+
 }

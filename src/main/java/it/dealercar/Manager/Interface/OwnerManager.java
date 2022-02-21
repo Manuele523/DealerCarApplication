@@ -11,4 +11,10 @@ public interface OwnerManager {
 
     List<CarOwnerDTO> findAllCarOfOwner(Long idOwner);
 
+    void insert(OwnerDTO owner);
+
+    void delete(Long idOwner);
+
+    void update(OwnerDTO owner);
+
 }

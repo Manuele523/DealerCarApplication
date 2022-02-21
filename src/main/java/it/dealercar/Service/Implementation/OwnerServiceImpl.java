@@ -54,4 +54,19 @@ public class OwnerServiceImpl implements OwnerService {
         return null;
     }
 
+    @Override
+    public void insert(OwnerEntity mapToEntity) {
+        ownerRepository.save(mapToEntity);
+    }
+
+    @Override
+    public void delete(Long idOwner) {
+        ownerRepository.deleteById(idOwner);
+    }
+
+    @Override
+    public void update(OwnerEntity mapToEntity) {
+        ownerRepository.save(mapToEntity);
+    }
+
 }
