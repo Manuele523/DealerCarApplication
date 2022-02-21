@@ -1,5 +1,6 @@
 package it.dealercar.DTO;
 
+import it.dealercar.Enum.StatusPractice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,7 @@ public class CarOwnerDTO implements Serializable {
     private Long idOwner;
     private Date purchaseDate;
     private Date sellDate;
+    private Date dateLastEdit;
+    private StatusPractice statusPractice;
 
 }

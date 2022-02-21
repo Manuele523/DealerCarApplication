@@ -10,5 +10,5 @@ public interface OwnerService {
 
     List<OwnerEntity> findAll();
 
-    List<CarOwnerEntity> findAllCarOfOwner();
+    List<CarOwnerEntity> findAllCarOfOwner(Long idOwner);
 }

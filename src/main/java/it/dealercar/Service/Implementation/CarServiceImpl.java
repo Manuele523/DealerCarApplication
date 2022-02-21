@@ -52,7 +52,6 @@ public class CarServiceImpl implements CarService {
         } catch (Exception e) {
             System.out.println("Error in CarServiceImpl.findAllModelByBrand! \nWith idBrand: " + idBrand);
         }
-
         return null;
     }
 

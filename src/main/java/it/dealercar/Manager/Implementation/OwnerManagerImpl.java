@@ -25,7 +25,7 @@ public class OwnerManagerImpl implements OwnerManager {
 
     @Override
     public List<CarOwnerDTO> findAllCarOfOwner(Long idOwner) {
-        return ownerService.findAllCarOfOwner().stream().map(CarOwnerMapper::mapToDTO).collect(Collectors.toList());
+        return ownerService.findAllCarOfOwner(idOwner).stream().map(CarOwnerMapper::mapToDTO).collect(Collectors.toList());
     }
 
 }

@@ -8,4 +8,6 @@ public interface ServiceService {
 
     void sellCar(CarOwnerEntity carOwnerEntity);
 
+    void changePracticeStatus(CarOwnerEntity carOwnerEntity);
+
 }

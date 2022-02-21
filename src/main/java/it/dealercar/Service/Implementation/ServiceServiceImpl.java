@@ -22,4 +22,9 @@ public class ServiceServiceImpl implements ServiceService {
         carOwnerRepository.save(carOwnerEntity);
     }
 
+    @Override
+    public void changePracticeStatus(CarOwnerEntity carOwnerEntity) {
+        carOwnerRepository.save(carOwnerEntity);
+    }
+
 }

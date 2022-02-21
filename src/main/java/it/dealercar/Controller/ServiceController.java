@@ -23,4 +23,9 @@ public class ServiceController {
         serviceManager.sellCar(carOwner);
     }
 
+    @PostMapping("changePracticeStatus")
+    public void changePracticeStatus(@RequestBody CarOwnerDTO carOwner, @RequestParam("status") String status) {
+        serviceManager.changePracticeStatus(carOwner, status);
+    }
+
 }

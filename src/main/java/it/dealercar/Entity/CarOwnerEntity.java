@@ -34,7 +34,14 @@ public class CarOwnerEntity {
     private Date purchaseDate;
 
     @DateTimeFormat
-    @Column(name = "SELL_DATE", nullable = false)
+    @Column(name = "SELL_DATE", nullable = true)
     private Date sellDate;
+
+    @DateTimeFormat
+    @Column(name = "LAST_EDIT_DATE", nullable = false)
+    private Date dateLastEdit;
+
+    @Column(name = "PRACTICE_STATUS", nullable = false)
+    private String statusPractice;
 
 }
