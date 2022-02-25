@@ -11,7 +11,7 @@ export class BrandTableComponent implements OnInit {
 
   page = 1;
   pageSize = 15;
-  
+
   brands: Array<Brand> = [];
 
   constructor(private carService: CarService) { }

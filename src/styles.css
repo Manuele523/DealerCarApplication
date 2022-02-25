@@ -1,8 +1,14 @@
 
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
 .btn-trash, .btn-edit {
     color: black;
 }
-  
+
 .btn-trash:hover, .btn-edit:hover {
     color: gray;
     cursor: pointer;
