@@ -16,6 +16,10 @@ export class ModelService {
         return this.http.get<Array<Model>>(this.baseUrl + 'findAll');
     }
 
+    insert(model: Model) {
+      this.http.post(this.baseUrl + 'insert', model);
+    }
+
     update(model: Model) {
         this.http.put(this.baseUrl + 'put', model);
     }

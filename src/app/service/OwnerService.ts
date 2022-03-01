@@ -16,6 +16,10 @@ export class OwnerService {
     return this.http.get<Array<Owner>>(this.baseUrl + 'findAll');
   }
 
+  insert(owner: Owner) {
+    this.http.post(this.baseUrl + 'insert', owner);
+  }
+
   update(owner: Owner) {
     this.http.put(this.baseUrl + 'putOwner', owner);
   }
