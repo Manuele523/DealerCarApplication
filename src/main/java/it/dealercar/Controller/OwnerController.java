@@ -7,6 +7,7 @@ import it.dealercar.Manager.Interface.OwnerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
@@ -18,28 +19,31 @@ public class OwnerController {
     private OwnerManager ownerManager;
 
     @GetMapping("findAll")
-    public List<OwnerDTO> findAll() {
-        return ownerManager.findAll();
+    public Response findAll() {
+        return Response.ok(ownerManager.findAll()).build();
     }
 
     @PostMapping("findAllCarOfOwner")
-    public List<CarOwnerDTO> findAllCarOfOwner(@RequestParam("id") Long idOwner) {
-        return ownerManager.findAllCarOfOwner(idOwner);
+    public Response findAllCarOfOwner(@RequestParam("id") Long idOwner) {
+        return Response.ok(ownerManager.findAllCarOfOwner(idOwner)).build();
     }
 
     @PostMapping("insert")
-    public void insert(@RequestBody OwnerDTO owner) {
+    public Response insert(@RequestBody OwnerDTO owner) {
         ownerManager.insert(owner);
+        return Response.ok().build();
     }
 
     @DeleteMapping("delete")
-    public void delete(@RequestParam("id") Long idOwner) {
+    public Response delete(@RequestParam("id") Long idOwner) {
         ownerManager.delete(idOwner);
+        return Response.ok().build();
     }
 
     @PutMapping("update")
-    public void update(@RequestBody OwnerDTO owner) {
+    public Response update(@RequestBody OwnerDTO owner) {
         ownerManager.update(owner);
+        return Response.ok().build();
     }
 
 }

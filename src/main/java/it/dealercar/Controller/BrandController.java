@@ -5,6 +5,8 @@ import it.dealercar.Manager.Interface.BrandManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
+
 import java.util.List;
 
 @RestController
@@ -21,18 +23,21 @@ public class BrandController {
     }
 
     @PostMapping("insert")
-    public void insert(@RequestBody BrandDTO brand) {
+    public Response insert(@RequestBody BrandDTO brand) {
         brandManager.insert(brand);
+        return Response.ok().build();
     }
 
     @DeleteMapping("delete")
-    public void delete(@RequestParam("id") Long idBrand) {
+    public Response delete(@RequestParam("id") Long idBrand) {
         brandManager.delete(idBrand);
+        return Response.ok().build();
     }
 
     @PutMapping("put")
-    public void update(@RequestBody BrandDTO brand) {
+    public Response update(@RequestBody BrandDTO brand) {
         brandManager.update(brand);
+        return Response.ok().build();
     }
 
 }

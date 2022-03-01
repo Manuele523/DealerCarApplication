@@ -6,6 +6,7 @@ import it.dealercar.Manager.Interface.ModelManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
@@ -17,28 +18,31 @@ public class ModelController {
     private ModelManager modelManager;
 
     @GetMapping("findAll")
-    public List<ModelDTO> findAll() {
-        return modelManager.findAll();
+    public Response findAll() {
+        return Response.ok(modelManager.findAll()).build();
     }
 
     @PostMapping("findAllModelByBrand")
-    public List<ModelDTO> findAllModelByBrand(@RequestParam("id") Long idBrand) {
-        return modelManager.findAllModelByBrand(idBrand);
+    public Response findAllModelByBrand(@RequestParam("id") Long idBrand) {
+        return Response.ok(modelManager.findAllModelByBrand(idBrand)).build();
     }
 
     @PostMapping("insert")
-    public void insert(@RequestBody ModelDTO model) {
+    public Response insert(@RequestBody ModelDTO model) {
         modelManager.insert(model);
+        return Response.ok().build();
     }
 
     @DeleteMapping("delete")
-    public void delete(@RequestParam("id") Long idModel) {
+    public Response delete(@RequestParam("id") Long idModel) {
         modelManager.delete(idModel);
+        return Response.ok().build();
     }
 
     @PutMapping("put")
-    public void update(@RequestBody ModelDTO model) {
+    public Response update(@RequestBody ModelDTO model) {
         modelManager.update(model);
+        return Response.ok().build();
     }
 
 }
