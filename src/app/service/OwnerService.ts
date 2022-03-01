@@ -8,16 +8,20 @@ import { Owner } from '../model/Owner';
 })
 export class OwnerService {
 
-   baseUrl = 'http://localhost:8080/Owner/';
+  baseUrl = 'http://localhost:8080/Owner/';
 
-   constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-   findAll(): Observable<Array<Owner>> {
-      return this.http.get<Array<Owner>>(this.baseUrl + 'findAll');
-   }
+  findAll(): Observable<Array<Owner>> {
+    return this.http.get<Array<Owner>>(this.baseUrl + 'findAll');
+  }
 
-   delete(id: any) {
-      this.http.delete(this.baseUrl + 'delete?id=' + id);
-   }
+  update(owner: Owner) {
+    this.http.put(this.baseUrl + 'putOwner', owner);
+  }
+
+  delete(id: any) {
+    this.http.delete(this.baseUrl + 'delete?id=' + id);
+  }
 
 }

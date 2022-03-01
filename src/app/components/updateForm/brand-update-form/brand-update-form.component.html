@@ -1,1 +1,24 @@
-<p>brand-update-form works!</p>
+
+<select #selectListBrand class="form-control" style="width: 15%" (change)="onClick($event)">
+  <option *ngFor="let brand of brands" value="{{brand.id}}">{{ brand.title }}</option>
+</select>
+
+<br>
+
+<form [formGroup]="brandForm" (ngSubmit)="update()">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputId">Id</label>
+      <input type="number" class="form-control" id="inputId" formControlName="id" readOnly>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputCode">Code</label>
+      <input type="text" class="form-control" id="inputCode" formControlName="code">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputTitle">Title</label>
+      <input type="text" class="form-control" id="inputTitle" formControlName="title">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Confirm</button>
+</form>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Model } from 'src/app/model/Model';
-import { CarService } from 'src/app/service/CarService';
+import { ModelService } from 'src/app/service/ModelService';
 
 @Component({
   selector: 'app-model-table',
@@ -12,21 +12,22 @@ export class ModelTableComponent implements OnInit {
   page = 1;
   pageSize = 15;
   collectionSize = 1000;
-  
+
   models: Array<Model> = [];
 
-  constructor(private carService: CarService) { }
+  constructor(private modelService: ModelService) { }
 
   ngOnInit(): void {
     this.populateTable();
   }
 
   delete(prd: any): void {
-    this.carService.deleteModel(prd.id);
+    this.modelService.delete(prd.id);
+    this.populateTable();
   }
 
   populateTable(): void {
-    this.carService.findAllModel().subscribe(resp => {
+    this.modelService.findAll().subscribe(resp => {
       this.models = resp;
     });
   }

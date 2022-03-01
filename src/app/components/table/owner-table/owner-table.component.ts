@@ -12,7 +12,7 @@ export class OwnerTableComponent implements OnInit {
   page = 1;
   pageSize = 15;
   collectionSize = 1000;
-  
+
   owners: Array<Owner> = [];
 
   constructor(private ownerService: OwnerService) { }
@@ -23,6 +23,7 @@ export class OwnerTableComponent implements OnInit {
 
   delete(prd: any): void {
     this.ownerService.delete(prd.id);
+    this.populateTable();
   }
 
   populateTable(): void {

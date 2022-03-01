@@ -1,72 +1,91 @@
-
 <div class="container-fluid container-side-bar">
-    <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-        <div class="position-sticky pt-3">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" [routerLink]="['/brand']">
-                <span data-feather="home"></span>
-                Brand
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/model']">
-                <span data-feather="file"></span>
-                Model
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/owner']">
-                <span data-feather="shopping-cart"></span>
-                Owner
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Car-Owner
-              </a>
-            </li>
-          </ul>
-
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-              <span data-feather="plus-circle"></span>
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="onChangeTab('brand')" [routerLink]="['/brand']">
+              <span data-feather="home"></span>
+              Brand
             </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Current month
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Last quarter
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Year-end sale
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="onChangeTab('model')" [routerLink]="['/model']">
+              <span data-feather="file"></span>
+              Model
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="onChangeTab('owner')" [routerLink]="['/owner']">
+              <span data-feather="shopping-cart"></span>
+              Owner
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>
+              Car-Owner
+            </a>
+          </li>
+        </ul>
 
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container-main-router">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Extra Actions</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Current month
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Last quarter
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Social engagement
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Year-end sale
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container-main-router">
+      <br>
+      <div [style.display]="isVisible ? 'block' : 'none'" >
+        <h2 style="float: left;">{{ title }}</h2>
+        <div style="float: right;" class="btn-group btn-group-toggle"
+          data-toggle="buttons">
+          <label class="btn btn-secondary">
+            <a type="radio" (click)="goToComponent('table')"> FindAll </a>
+          </label>
+          <label class="btn btn-secondary">
+            <a type="radio" (click)="goToComponent('insert')"> Insert </a>
+          </label>
+          <label class="btn btn-secondary">
+            <a type="radio" (click)="goToComponent('update')"> Update </a>
+          </label>
+        </div>
+
+        <br>
+        <hr>
+      </div>
+
+      <router-outlet></router-outlet>
+    </main>
   </div>
+</div>

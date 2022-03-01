@@ -1,7 +1,7 @@
 export interface Owner {
     id?: number,
-    firstName: string,
-    lastName: string,
+    firstname: string,
+    lastname: string,
     birthdate: Date,
     mail: string
 }
