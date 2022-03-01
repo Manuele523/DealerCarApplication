@@ -1,6 +1,7 @@
 package it.dealercar.Service.Implementation;
 
 import it.dealercar.Entity.BrandEntity;
+import it.dealercar.Entity.ModelEntity;
 import it.dealercar.Repository.BrandRepository;
 import it.dealercar.Service.Interface.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,40 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void insert(BrandEntity brand) {
-        brandRepository.save(brand);
+    public String insert(BrandEntity brand) {
+        try {
+            brandRepository.save(brand);
+            return "Inserted new Brand! ( " + brand + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in BrandServiceImpl.insert");
+            return "It was not possible to insert a new Brand! ( " + brand + " )";
+        }
     }
 
     @Override
-    public void delete(Long idBrand) {
-        brandRepository.deleteById(idBrand);
+    public String delete(Long idBrand) {
+        BrandEntity entity = null;
+        try {
+            entity = brandRepository.getById(idBrand);
+            brandRepository.deleteById(idBrand);
+            return "Deleted new Brand! ( " + entity + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in BrandServiceImpl.delete");
+            return "It wasn't possible to delete Brand! ( " + entity + " )";
+        }
     }
 
     @Override
-    public void update(BrandEntity brand) {
-        brandRepository.save(brand);
+    public String update(BrandEntity brand) {
+        BrandEntity entityOld = null;
+        try {
+            entityOld = brandRepository.getById(brand.getId());
+            brandRepository.save(brand);
+            return "update new Brand from ( " + entityOld + " ) to ( " + brand + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in BrandServiceImpl.update");
+            return "It wasn't possible to update Brand! ( " + entityOld + " )";
+        }
     }
+
 }

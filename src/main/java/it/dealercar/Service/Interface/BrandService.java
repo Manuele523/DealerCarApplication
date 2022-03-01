@@ -8,10 +8,10 @@ public interface BrandService {
 
     List<BrandEntity> findAll();
 
-    void insert(BrandEntity brand);
+    String insert(BrandEntity brand);
 
-    void delete(Long idBrand);
+    String delete(Long idBrand);
 
-    void update(BrandEntity brand);
+    String update(BrandEntity brand);
 
 }

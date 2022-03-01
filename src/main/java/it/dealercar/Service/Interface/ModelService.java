@@ -10,10 +10,10 @@ public interface ModelService {
 
     List<ModelEntity> findAllModelByBrand(Long idBrand);
 
-    void insert(ModelEntity model);
+    String insert(ModelEntity model);
 
-    void delete(Long idModel);
+    String delete(Long idModel);
 
-    void update(ModelEntity model);
+    String update(ModelEntity model);
 
 }

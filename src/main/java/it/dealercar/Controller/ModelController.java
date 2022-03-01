@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @RestController
 @RequestMapping("/Model/")
@@ -29,20 +28,17 @@ public class ModelController {
 
     @PostMapping("insert")
     public Response insert(@RequestBody ModelDTO model) {
-        modelManager.insert(model);
-        return Response.ok().build();
+        return Response.ok(modelManager.insert(model)).build();
     }
 
     @DeleteMapping("delete")
     public Response delete(@RequestParam("id") Long idModel) {
-        modelManager.delete(idModel);
-        return Response.ok().build();
+        return Response.ok(modelManager.delete(idModel)).build();
     }
 
     @PutMapping("put")
     public Response update(@RequestBody ModelDTO model) {
-        modelManager.update(model);
-        return Response.ok().build();
+        return Response.ok(modelManager.update(model)).build();
     }
 
 }

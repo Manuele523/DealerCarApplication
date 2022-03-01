@@ -27,18 +27,18 @@ public class ModelManagerImpl implements ModelManager {
     }
 
     @Override
-    public void insert(ModelDTO model) {
-        modelService.insert(ModelMapper.mapToEntity(model));
+    public String insert(ModelDTO model) {
+        return modelService.insert(ModelMapper.mapToEntity(model));
     }
 
     @Override
-    public void delete(Long idModel) {
-        modelService.delete(idModel);
+    public String delete(Long idModel) {
+        return modelService.delete(idModel);
     }
 
     @Override
-    public void update(ModelDTO model) {
-        modelService.update(ModelMapper.mapToEntity(model));
+    public String update(ModelDTO model) {
+        return modelService.update(ModelMapper.mapToEntity(model));
     }
 
 }

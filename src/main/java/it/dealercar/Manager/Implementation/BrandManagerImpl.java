@@ -22,18 +22,18 @@ public class BrandManagerImpl implements BrandManager {
     }
 
     @Override
-    public void insert(BrandDTO brand) {
-        brandService.insert(BrandMapper.mapToEntity(brand));
+    public String insert(BrandDTO brand) {
+        return brandService.insert(BrandMapper.mapToEntity(brand));
     }
 
     @Override
-    public void delete(Long idBrand) {
-        brandService.delete(idBrand);
+    public String delete(Long idBrand) {
+        return brandService.delete(idBrand);
     }
 
     @Override
-    public void update(BrandDTO brand) {
-        brandService.update(BrandMapper.mapToEntity(brand));
+    public String update(BrandDTO brand) {
+        return brandService.update(BrandMapper.mapToEntity(brand));
     }
 
 }

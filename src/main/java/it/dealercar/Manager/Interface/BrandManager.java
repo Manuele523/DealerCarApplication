@@ -8,9 +8,9 @@ public interface BrandManager {
 
     List<BrandDTO> findAll();
 
-    void insert(BrandDTO brand);
+    String insert(BrandDTO brand);
 
-    void delete(Long idBrand);
+    String delete(Long idBrand);
 
-    void update(BrandDTO brand);
+    String update(BrandDTO brand);
 }

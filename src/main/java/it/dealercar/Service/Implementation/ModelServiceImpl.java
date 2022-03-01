@@ -1,8 +1,6 @@
 package it.dealercar.Service.Implementation;
 
-import it.dealercar.Entity.BrandEntity;
 import it.dealercar.Entity.ModelEntity;
-import it.dealercar.Repository.BrandRepository;
 import it.dealercar.Repository.ModelRepository;
 import it.dealercar.Service.Interface.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ public class ModelServiceImpl implements ModelService {
     @Autowired
     private ModelRepository modelRepository;
 
-    // MODEL
     @Override
     public List<ModelEntity> findAll() {
         return modelRepository.findAll();
@@ -52,18 +49,40 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public void insert(ModelEntity model) {
-        modelRepository.save(model);
+    public String insert(ModelEntity model) {
+        try {
+            modelRepository.save(model);
+            return "Inserted new Model! ( " + model + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in ModelServiceImpl.insert");
+            return "It was not possible to insert a new Model! ( " + model + " )";
+        }
     }
 
     @Override
-    public void delete(Long idModel) {
-        modelRepository.deleteById(idModel);
+    public String delete(Long idModel) {
+        ModelEntity entity = null;
+        try {
+            entity = modelRepository.getById(idModel);
+            modelRepository.deleteById(idModel);
+            return "Deleted new Model! ( " + entity + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in ModelServiceImpl.delete");
+            return "It wasn't possible to delete Model! ( " + entity + " )";
+        }
     }
 
     @Override
-    public void update(ModelEntity model) {
-        modelRepository.save(model);
+    public String update(ModelEntity model) {
+        ModelEntity entityOld = null;
+        try {
+            entityOld = modelRepository.getById(model.getId());
+            modelRepository.save(model);
+            return "update new Model from ( " + entityOld + " ) to ( " + model + " )";
+        } catch (Exception e) {
+            System.out.println("Error! Broken in ModelServiceImpl.update");
+            return "It wasn't possible to update Model! ( " + entityOld + " )";
+        }
     }
 
 }
