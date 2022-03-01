@@ -24,10 +24,10 @@ public class OwnerEntity {
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
+    private String firstname;
 
     @Column(name = "LAST_NAME", nullable = false)
-    private String lastName;
+    private String lastname;
 
     @DateTimeFormat
     @Column(name = "BIRTHDATE", nullable = false)

@@ -1,12 +1,10 @@
 package it.dealercar.Service.Implementation;
 
-import it.dealercar.DTO.BrandDTO;
-import it.dealercar.DTO.ModelDTO;
 import it.dealercar.Entity.BrandEntity;
 import it.dealercar.Entity.ModelEntity;
 import it.dealercar.Repository.BrandRepository;
 import it.dealercar.Repository.ModelRepository;
-import it.dealercar.Service.Interface.CarService;
+import it.dealercar.Service.Interface.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +17,13 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
-public class CarServiceImpl implements CarService {
+public class ModelServiceImpl implements ModelService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     private ModelRepository modelRepository;
-    @Autowired
-    private BrandRepository brandRepository;
 
     // MODEL
     @Override
@@ -56,38 +52,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void insertModel(ModelEntity model) {
+    public void insert(ModelEntity model) {
         modelRepository.save(model);
     }
 
     @Override
-    public void deleteModel(Long idModel) {
+    public void delete(Long idModel) {
         modelRepository.deleteById(idModel);
     }
 
     @Override
-    public void updateModel(ModelEntity model) {
+    public void update(ModelEntity model) {
         modelRepository.save(model);
     }
 
-    // BRAND
-    @Override
-    public List<BrandEntity> findAllBrand() {
-        return brandRepository.findAll();
-    }
-
-    @Override
-    public void insertBrand(BrandEntity brand) {
-        brandRepository.save(brand);
-    }
-
-    @Override
-    public void deleteBrand(Long idBrand) {
-        brandRepository.deleteById(idBrand);
-    }
-
-    @Override
-    public void updateBrand(BrandEntity brand) {
-        brandRepository.save(brand);
-    }
 }

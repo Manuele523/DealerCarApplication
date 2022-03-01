@@ -15,8 +15,8 @@ import java.util.Date;
 public class OwnerDTO implements Serializable {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private Date birthdate;
     private String mail;
 
