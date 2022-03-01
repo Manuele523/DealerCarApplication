@@ -12,20 +12,20 @@ export class OwnerService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(): Observable<Array<Owner>> {
-    return this.http.get<Array<Owner>>(this.baseUrl + 'findAll');
+  findAll(): Observable<Response> {
+    return this.http.get<Response>(this.baseUrl + 'findAll');
   }
 
-  insert(owner: Owner) {
-    this.http.post(this.baseUrl + 'insert', owner);
+  insert(owner: Owner) : Observable<any> {
+    return this.http.post(this.baseUrl + 'insert', owner);
   }
 
-  update(owner: Owner) {
-    this.http.put(this.baseUrl + 'putOwner', owner);
+  update(owner: Owner) : Observable<any> {
+    return this.http.put(this.baseUrl + 'putOwner', owner);
   }
 
-  delete(id: any) {
-    this.http.delete(this.baseUrl + 'delete?id=' + id);
+  delete(id: any) : Observable<any> {
+    return this.http.delete(this.baseUrl + 'delete?id=' + id);
   }
 
 }

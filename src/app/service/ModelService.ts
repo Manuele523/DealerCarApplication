@@ -12,20 +12,20 @@ export class ModelService {
 
     constructor(private http: HttpClient) { }
 
-    findAll(): Observable<Array<Model>> {
-        return this.http.get<Array<Model>>(this.baseUrl + 'findAll');
+    findAll(): Observable<Response> {
+      return this.http.get<Response>(this.baseUrl + 'findAll');
     }
 
-    insert(model: Model) {
-      this.http.post(this.baseUrl + 'insert', model);
+    insert(model: Model) : Observable<any> {
+      return this.http.post(this.baseUrl + 'insert', model);
     }
 
-    update(model: Model) {
-        this.http.put(this.baseUrl + 'put', model);
+    update(model: Model) : Observable<any> {
+      return this.http.put(this.baseUrl + 'put', model);
     }
 
-    delete(id: any) {
-        this.http.delete(this.baseUrl + 'delete?id=' + id);
+    delete(id: any) : Observable<any> {
+      return this.http.delete(this.baseUrl + 'delete?id=' + id);
     }
 
 }

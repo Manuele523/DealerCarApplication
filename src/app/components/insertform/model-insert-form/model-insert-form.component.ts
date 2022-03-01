@@ -40,13 +40,15 @@ export class ModelInsertFormComponent implements OnInit {
           title: tmpBrand.title,
         }
       }
-      this.modelService.insert(this.model);
+      this.modelService.insert(this.model).subscribe();
     }
   }
 
   ngOnInit(): void {
-    this.brandService.findAll().subscribe(data => {
-      this.brands = data;
+    this.brandService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200) {
+        this.brands = data.entity ? data.entity : [];
+      }
     });
   }
 }

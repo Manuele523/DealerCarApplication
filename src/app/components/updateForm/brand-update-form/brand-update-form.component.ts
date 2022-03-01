@@ -35,7 +35,7 @@ export class BrandUpdateFormComponent implements OnInit {
         title: formVal.title
       }
     }
-    this.brandService.update(this.brand);
+    this.brandService.update(this.brand).subscribe();
   }
 
   onClick(event: any) : void {
@@ -52,21 +52,23 @@ export class BrandUpdateFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.brandService.findAll().subscribe((data: Array<Brand>) => {
-      this.brands = data;
+    this.brandService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200) {
+        this.brands = data.entity ? data.entity : [];
 
-      this.route.queryParams.subscribe((params: any) => {
-        if ( params != null && params != undefined)
-          var tmpBrand = this.brands.find(x => x.id == params.id);
-          if (tmpBrand != null && tmpBrand != undefined) {
-            this.brandForm.setValue({
-              id: tmpBrand.id,
-              code: tmpBrand.code,
-              title: tmpBrand.title
-            });
-          this.brandForm.enable();
-        }
-      });
+        this.route.queryParams.subscribe((params: any) => {
+          if ( params != null && params != undefined)
+            var tmpBrand = this.brands.find(x => x.id == params.id);
+            if (tmpBrand != null && tmpBrand != undefined) {
+              this.brandForm.setValue({
+                id: tmpBrand.id,
+                code: tmpBrand.code,
+                title: tmpBrand.title
+              });
+            this.brandForm.enable();
+          }
+        });
+      }
     });
   }
 }

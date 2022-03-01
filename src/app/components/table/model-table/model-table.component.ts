@@ -22,13 +22,15 @@ export class ModelTableComponent implements OnInit {
   }
 
   delete(prd: any): void {
-    this.modelService.delete(prd.id);
+    this.modelService.delete(prd.id).subscribe();
     this.populateTable();
   }
 
   populateTable(): void {
-    this.modelService.findAll().subscribe(resp => {
-      this.models = resp;
+    this.modelService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200 ) {
+        this.models  = data.entity ? data.entity : [];
+      }
     });
   }
 }

@@ -22,13 +22,15 @@ export class OwnerTableComponent implements OnInit {
   }
 
   delete(prd: any): void {
-    this.ownerService.delete(prd.id);
+    this.ownerService.delete(prd.id).subscribe();
     this.populateTable();
   }
 
   populateTable(): void {
-    this.ownerService.findAll().subscribe(resp => {
-      this.owners = resp;
+    this.ownerService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200 ) {
+        this.owners = data.entity ? data.entity : [];
+      }
     });
   }
 }

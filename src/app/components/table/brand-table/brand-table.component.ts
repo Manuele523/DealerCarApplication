@@ -24,13 +24,17 @@ export class BrandTableComponent implements OnInit {
   }
 
   delete(prd: any): void {
-    this.brandService.delete(prd.id);
+    this.brandService.delete(prd.id).subscribe();
     this.populateTable();
   }
 
   populateTable(): void {
-    this.brandService.findAll().subscribe(resp => {
-      this.brands = resp;
+    this.brandService.findAll()
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data && data.status == 200) {
+          this.brands = data.entity;
+        }
     });
   }
 

@@ -45,7 +45,7 @@ export class ModelUpdateFormComponent implements OnInit {
           title: tmpBrand.title,
         }
       }
-      this.modelService.update(this.model);
+      this.modelService.update(this.model).subscribe();
     }
   }
 
@@ -64,26 +64,31 @@ export class ModelUpdateFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.brandService.findAll().subscribe(data => {
-      this.brands = data;
+    this.brandService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200) {
+        this.brands = data ? data : [];
+      }
     });
 
-    this.modelService.findAll().subscribe(data => {
-      this.models = data;
+    this.modelService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200) {
+        this.brands = data.entity ? data.entity : [];
 
-      this.route.queryParams.subscribe((params: any) => {
-        if ( params != null && params != undefined)
-          var tmpModel = this.models.find(x => x.id == params.id);
-          if (tmpModel != null && tmpModel != undefined) {
-            this.modelForm.setValue({
-              id: tmpModel.id,
-              code: tmpModel.code,
-              title: tmpModel.title,
-              brandId: tmpModel.brand.id
-            });
-            this.modelForm.enable();
+        this.route.queryParams.subscribe((params: any) => {
+          if ( params != null && params != undefined) {
+            var tmpModel = this.models.find(x => x.id == params.id);
+            if (tmpModel != null && tmpModel != undefined) {
+              this.modelForm.setValue({
+                id: tmpModel.id,
+                code: tmpModel.code,
+                title: tmpModel.title,
+                brandId: tmpModel.brand.id
+              });
+              this.modelForm.enable();
+            }
           }
         });
-      });
-    }
+      }
+    });
+  }
 }

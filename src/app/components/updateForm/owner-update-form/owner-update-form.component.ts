@@ -39,7 +39,7 @@ export class OwnerUpdateFormComponent implements OnInit {
         birthdate: formVal.birthdate,
         mail: formVal.mail
       }
-      this.ownerService.update(this.owner);
+      this.ownerService.update(this.owner).subscribe();
     }
   }
 
@@ -59,23 +59,25 @@ export class OwnerUpdateFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ownerService.findAll().subscribe(data => {
-      this.owners = data;
+    this.ownerService.findAll().subscribe((data: any) => {
+      if ( data && data.status == 200 ) {
+        this.owners = data.entity ? data.entity : [];
 
-      this.route.queryParams.subscribe((params: any) => {
-        if ( params != null && params != undefined)
-          var tmpOwner = this.owners.find(x => x.id == params.id);
-            if (tmpOwner != null && tmpOwner != undefined) {
-              this.ownerForm.setValue({
-                id: tmpOwner.id,
-                firstname: tmpOwner.firstname,
-                lastname: tmpOwner.lastname,
-                birthdate: tmpOwner.birthdate,
-                mail: tmpOwner.mail
-              });
-            this.ownerForm.enable();
-          }
-        });
+        this.route.queryParams.subscribe((params: any) => {
+          if ( params != null && params != undefined)
+            var tmpOwner = this.owners.find(x => x.id == params.id);
+              if (tmpOwner != null && tmpOwner != undefined) {
+                this.ownerForm.setValue({
+                  id: tmpOwner.id,
+                  firstname: tmpOwner.firstname,
+                  lastname: tmpOwner.lastname,
+                  birthdate: tmpOwner.birthdate,
+                  mail: tmpOwner.mail
+                });
+              this.ownerForm.enable();
+            }
+          });
+        }
       });
     }
 }

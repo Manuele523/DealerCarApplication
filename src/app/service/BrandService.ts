@@ -7,25 +7,25 @@ import { Brand } from '../model/Brand';
   providedIn: 'root'
 })
 export class BrandService {
-  
+
   baseUrl = 'http://localhost:8080/Brand/';
-  
+
   constructor(private http: HttpClient) { }
-  
-  findAll(): Observable<Array<Brand>> {
-    return this.http.get<Array<Brand>>(this.baseUrl + 'findAll');
+
+  findAll(): Observable<Response> {
+    return this.http.get<Response>(this.baseUrl + 'findAll');
   }
 
-  insert(brand: Brand) {
-    this.http.post(this.baseUrl + 'insert', brand);
+  insert(brand: Brand) : Observable<any> {
+    return this.http.post(this.baseUrl + 'insert', brand);
   }
-  
-  update(brand: Brand) {
-    this.http.put(this.baseUrl + 'put', brand);
+
+  update(brand: Brand) : Observable<any> {
+    return this.http.put(this.baseUrl + 'put', brand);
   }
-  
-  delete(id: any) {
-    this.http.delete(this.baseUrl + 'delete?id=' + id);
+
+  delete(id: any) : Observable<any> {
+    return this.http.delete(this.baseUrl + 'delete?id=' + id);
   }
-  
+
 }
