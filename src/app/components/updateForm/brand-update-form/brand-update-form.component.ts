@@ -12,6 +12,7 @@ import { BrandService } from 'src/app/service/BrandService';
 })
 export class BrandUpdateFormComponent implements OnInit {
 
+  response: String = '';
   brands: Array<Brand> = [];
   brand = {} as Brand;
   isDisabled: Boolean = true;
@@ -35,7 +36,9 @@ export class BrandUpdateFormComponent implements OnInit {
         title: formVal.title
       }
     }
-    this.brandService.update(this.brand).subscribe();
+    this.brandService.update(this.brand).subscribe((data: any) => {
+      this.response = data.entity;
+    });
   }
 
   onClick(event: any) : void {

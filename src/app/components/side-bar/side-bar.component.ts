@@ -14,7 +14,7 @@ export class SideBarComponent {
   constructor(private router: Router) { }
 
   onChangeTab(page: String) : void {
-    this.title = page.toUpperCase() + ' TABLE';
+    this.title = 'TABLE ' + page.toUpperCase();
     this.isVisible = true;
   }
 
@@ -25,7 +25,6 @@ export class SideBarComponent {
       baseUrl = url.substring(url.indexOf("/") + 1, url.lastIndexOf("/"));
     }
     this.title = page.toUpperCase() + ' ' + baseUrl.substring(baseUrl  .indexOf("/") + 1).toUpperCase();
-    console.log(this.title);
     this.router.navigate([baseUrl + '/' + (page == 'table' ? '' : page)]);
   }
 
