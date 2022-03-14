@@ -1,14 +1,12 @@
 package it.dealercar.Controller;
 
 
-import it.dealercar.DTO.CarOwnerDTO;
 import it.dealercar.DTO.OwnerDTO;
 import it.dealercar.Manager.Interface.OwnerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @RestController
 @RequestMapping("/Owner/")

@@ -16,8 +16,8 @@ import java.util.Date;
 public class CarOwnerDTO implements Serializable {
 
     private Long id;
-    private Long idModel;
-    private Long idOwner;
+    private OwnerDTO owner;
+    private ModelDTO model;
     private Date purchaseDate;
     private Date sellDate;
     private Date dateLastEdit;

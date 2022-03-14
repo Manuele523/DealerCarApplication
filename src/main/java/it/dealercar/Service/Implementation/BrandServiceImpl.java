@@ -1,9 +1,9 @@
 package it.dealercar.Service.Implementation;
 
 import it.dealercar.Entity.BrandEntity;
-import it.dealercar.Entity.ModelEntity;
 import it.dealercar.Repository.BrandRepository;
 import it.dealercar.Service.Interface.BrandService;
+import it.dealercar.Utility.MessagePreFormatted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,39 +26,34 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public String insert(BrandEntity brand) {
+    public String insert(BrandEntity entity) throws Exception {
         try {
-            brandRepository.save(brand);
-            return "Inserted new Brand! ( " + brand + " )";
+            brandRepository.save(entity);
+            return MessagePreFormatted.buildOkMsgBrand(MessagePreFormatted.ActionType.INSERT, entity);
         } catch (Exception e) {
-            System.out.println("Error! Broken in BrandServiceImpl.insert");
-            return "It was not possible to insert a new Brand! ( " + brand + " )";
+            return MessagePreFormatted.buildKoMsgBrand(MessagePreFormatted.ActionType.INSERT, entity);
         }
     }
 
     @Override
-    public String delete(Long idBrand) {
-        BrandEntity entity = null;
+    public String delete(Long idBrand) throws Exception {
+        BrandEntity entity = brandRepository.getById(idBrand);
         try {
-            entity = brandRepository.getById(idBrand);
             brandRepository.deleteById(idBrand);
-            return "Deleted new Brand! ( " + entity + " )";
+            return MessagePreFormatted.buildOkMsgBrand(MessagePreFormatted.ActionType.DELETE, entity);
         } catch (Exception e) {
-            System.out.println("Error! Broken in BrandServiceImpl.delete");
-            return "It wasn't possible to delete Brand! ( " + entity + " )";
+            return MessagePreFormatted.buildKoMsgBrand(MessagePreFormatted.ActionType.DELETE, entity);
         }
     }
 
     @Override
-    public String update(BrandEntity brand) {
-        BrandEntity entityOld = null;
+    public String update(BrandEntity brand) throws Exception {
+        BrandEntity entityOld = brandRepository.getById(brand.getId());
         try {
-            entityOld = brandRepository.getById(brand.getId());
             brandRepository.save(brand);
-            return "update new Brand from ( " + entityOld + " ) to ( " + brand + " )";
+            return MessagePreFormatted.buildOkMsgBrand(MessagePreFormatted.ActionType.UPDATE, brand);
         } catch (Exception e) {
-            System.out.println("Error! Broken in BrandServiceImpl.update");
-            return "It wasn't possible to update Brand! ( " + entityOld + " )";
+            return MessagePreFormatted.buildKoMsgBrand(MessagePreFormatted.ActionType.UPDATE, entityOld);
         }
     }
 

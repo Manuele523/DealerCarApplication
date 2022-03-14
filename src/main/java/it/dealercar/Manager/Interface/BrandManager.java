@@ -8,9 +8,12 @@ public interface BrandManager {
 
     List<BrandDTO> findAll();
 
-    String insert(BrandDTO brand);
+    String insert(BrandDTO brand) throws Exception;
 
-    String delete(Long idBrand);
+    Boolean delete(Long idBrand) throws Exception;
 
-    String update(BrandDTO brand);
+    String update(BrandDTO brand) throws Exception;
+
+    Object checkIfHaveAssociationWithModel(Long idBrand);
+
 }

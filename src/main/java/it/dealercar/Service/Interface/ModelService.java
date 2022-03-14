@@ -10,10 +10,12 @@ public interface ModelService {
 
     List<ModelEntity> findAllModelByBrand(Long idBrand);
 
-    String insert(ModelEntity model);
+    String insert(ModelEntity model) throws Exception;
 
-    String delete(Long idModel);
+    String delete(Long idModel) throws Exception;
 
-    String update(ModelEntity model);
+    String update(ModelEntity model) throws Exception;
+
+    void deleteByBrand(Long idBrand);
 
 }

@@ -6,6 +6,8 @@ import it.dealercar.Manager.Interface.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
+
 @RestController
 @RequestMapping("/Service/")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -13,6 +15,11 @@ public class ServiceController {
 
     @Autowired
     private ServiceManager serviceManager;
+
+    @GetMapping("findAllCarOwner")
+    public Response findAllCarOwner() {
+        return Response.ok(serviceManager.findAllCarOwner()).build();
+    }
 
     @PostMapping("buyCar")
     public void buyCar(@RequestParam("idModel") Long idModel, @RequestParam("idOwner") Long idOwner) {

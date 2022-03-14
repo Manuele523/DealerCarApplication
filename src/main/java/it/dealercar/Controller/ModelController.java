@@ -27,17 +27,22 @@ public class ModelController {
     }
 
     @PostMapping("insert")
-    public Response insert(@RequestBody ModelDTO model) {
+    public Response insert(@RequestBody ModelDTO model) throws Exception {
         return Response.ok(modelManager.insert(model)).build();
     }
 
     @DeleteMapping("delete")
-    public Response delete(@RequestParam("id") Long idModel) {
+    public Response delete(@RequestParam("id") Long idModel) throws Exception {
         return Response.ok(modelManager.delete(idModel)).build();
     }
 
+    @GetMapping("checkIfHaveAssociationWithOwner")
+    public Response checkIfHaveAssociationWithOwner(@RequestParam("id") Long idModel) throws Exception {
+        return Response.ok(modelManager.checkIfHaveAssociationWithOwner(idModel)).build();
+    }
+
     @PutMapping("put")
-    public Response update(@RequestBody ModelDTO model) {
+    public Response update(@RequestBody ModelDTO model) throws Exception {
         return Response.ok(modelManager.update(model)).build();
     }
 

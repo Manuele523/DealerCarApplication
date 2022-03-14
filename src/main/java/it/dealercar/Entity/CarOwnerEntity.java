@@ -1,5 +1,6 @@
 package it.dealercar.Entity;
 
+import it.dealercar.Enum.StatusPractice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,15 +20,17 @@ public class CarOwnerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SG_ID")
-    @SequenceGenerator(name="SG_ID", sequenceName="SQ_ID_CAR_OWNER", allocationSize=1)
+    @SequenceGenerator(name = "SG_ID", sequenceName = "SQ_ID_CAR_OWNER", allocationSize = 1)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "FK_OWNER", nullable = false)
-    private Long idOwner;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "FK_OWNER", referencedColumnName = "ID")
+    private OwnerEntity owner;
 
-    @Column(name = "FK_MODEL", nullable = false)
-    private Long idModel;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "FK_MODEL", referencedColumnName = "ID")
+    private ModelEntity model;
 
     @DateTimeFormat
     @Column(name = "PURCHASE_DATE", nullable = false)
@@ -38,10 +41,11 @@ public class CarOwnerEntity {
     private Date sellDate;
 
     @DateTimeFormat
-    @Column(name = "LAST_EDIT_DATE", nullable = false)
+    @Column(name = "DATE_LAST_EDIT", nullable = false)
     private Date dateLastEdit;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "PRACTICE_STATUS", nullable = false)
-    private String statusPractice;
+    private StatusPractice statusPractice;
 
 }

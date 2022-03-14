@@ -10,10 +10,12 @@ public interface ModelManager {
 
     List<ModelDTO> findAllModelByBrand(Long idBrand);
 
-    String insert(ModelDTO model);
+    String insert(ModelDTO model) throws Exception;
 
-    String delete(Long idModel);
+    Boolean delete(Long idModel) throws Exception;
 
-    String update(ModelDTO model);
+    String update(ModelDTO model) throws Exception;
+
+    Object checkIfHaveAssociationWithOwner(Long idModel);
 
 }

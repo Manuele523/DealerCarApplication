@@ -19,7 +19,7 @@ public class OwnerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SG_ID")
-    @SequenceGenerator(name="SG_ID", sequenceName="SQ_ID_OWNER", allocationSize=1)
+    @SequenceGenerator(name = "SG_ID", sequenceName = "SQ_ID_OWNER", allocationSize = 1)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
@@ -36,4 +36,7 @@ public class OwnerEntity {
     @Column(name = "MAIL", nullable = false)
     private String mail;
 
+    public OwnerEntity(Long idOwner) {
+        this.id = idOwner;
+    }
 }

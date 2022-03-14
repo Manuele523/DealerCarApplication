@@ -21,17 +21,22 @@ public class BrandController {
     }
 
     @PostMapping("insert")
-    public Response insert(@RequestBody BrandDTO brand) {
+    public Response insert(@RequestBody BrandDTO brand) throws Exception {
         return Response.ok(brandManager.insert(brand)).build();
     }
 
     @DeleteMapping("delete")
-    public Response delete(@RequestParam("id") Long idBrand) {
+    public Response delete(@RequestParam("id") Long idBrand) throws Exception {
         return Response.ok(brandManager.delete(idBrand)).build();
     }
 
+    @GetMapping("checkIfHaveAssociationWithModel")
+    public Response checkIfHaveAssociationWithModel(@RequestParam("id") Long idBrand) throws Exception {
+        return Response.ok(brandManager.checkIfHaveAssociationWithModel(idBrand)).build();
+    }
+
     @PutMapping("put")
-    public Response update(@RequestBody BrandDTO brand) {
+    public Response update(@RequestBody BrandDTO brand) throws Exception {
         return Response.ok(brandManager.update(brand)).build();
     }
 

@@ -42,7 +42,7 @@ public class OwnerServiceImpl implements OwnerService {
             Root<CarOwnerEntity> root = criteriaQuery.from(CarOwnerEntity.class);
             criteriaQuery.select(root);
 
-            criteriaQuery.where(criteriaBuilder.equal(root.get("idOwner"), idOwner));
+            criteriaQuery.where(criteriaBuilder.equal(root.get("owner").get("id"), idOwner));
 
             TypedQuery<CarOwnerEntity> query = entityManager.createQuery(criteriaQuery);
 

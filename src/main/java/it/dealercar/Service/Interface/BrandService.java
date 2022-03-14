@@ -8,10 +8,10 @@ public interface BrandService {
 
     List<BrandEntity> findAll();
 
-    String insert(BrandEntity brand);
+    String insert(BrandEntity brand) throws Exception;
 
-    String delete(Long idBrand);
+    String delete(Long idBrand) throws Exception;
 
-    String update(BrandEntity brand);
+    String update(BrandEntity brand) throws Exception;
 
 }

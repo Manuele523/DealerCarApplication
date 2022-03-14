@@ -17,7 +17,7 @@ public class ModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SG_ID")
-    @SequenceGenerator(name="SG_ID", sequenceName="SQ_ID_MODEL", allocationSize=1)
+    @SequenceGenerator(name = "SG_ID", sequenceName = "SQ_ID_MODEL", allocationSize = 1)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
@@ -31,4 +31,7 @@ public class ModelEntity {
     @JoinColumn(name = "FK_BRAND", referencedColumnName = "ID")
     private BrandEntity brand;
 
+    public ModelEntity(Long idModel) {
+        this.id = idModel;
+    }
 }

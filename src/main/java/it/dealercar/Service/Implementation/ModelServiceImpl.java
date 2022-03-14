@@ -3,15 +3,15 @@ package it.dealercar.Service.Implementation;
 import it.dealercar.Entity.ModelEntity;
 import it.dealercar.Repository.ModelRepository;
 import it.dealercar.Service.Interface.ModelService;
+import it.dealercar.Utility.MessagePreFormatted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -43,45 +43,57 @@ public class ModelServiceImpl implements ModelService {
 
             return query.getResultList();
         } catch (Exception e) {
-            System.out.println("Error in CarServiceImpl.findAllModelByBrand! \nWith idBrand: " + idBrand);
+            System.out.println("Error in ModelServiceImpl.findAllModelByBrand! \nWith idBrand: " + idBrand);
         }
         return null;
     }
 
     @Override
-    public String insert(ModelEntity model) {
+    public String insert(ModelEntity entity) throws Exception {
         try {
-            modelRepository.save(model);
-            return "Inserted new Model! ( " + model + " )";
+            modelRepository.save(entity);
+            return MessagePreFormatted.buildOkMsgModel(MessagePreFormatted.ActionType.INSERT, entity);
         } catch (Exception e) {
-            System.out.println("Error! Broken in ModelServiceImpl.insert");
-            return "It was not possible to insert a new Model! ( " + model + " )";
+            return MessagePreFormatted.buildKoMsgModel(MessagePreFormatted.ActionType.INSERT, entity);
         }
     }
 
     @Override
-    public String delete(Long idModel) {
-        ModelEntity entity = null;
+    public String delete(Long idModel) throws Exception {
+        ModelEntity entity = modelRepository.getById(idModel);;
         try {
-            entity = modelRepository.getById(idModel);
             modelRepository.deleteById(idModel);
-            return "Deleted new Model! ( " + entity + " )";
+            return MessagePreFormatted.buildOkMsgModel(MessagePreFormatted.ActionType.DELETE, entity);
         } catch (Exception e) {
-            System.out.println("Error! Broken in ModelServiceImpl.delete");
-            return "It wasn't possible to delete Model! ( " + entity + " )";
+            return MessagePreFormatted.buildKoMsgModel(MessagePreFormatted.ActionType.DELETE, entity);
         }
     }
 
     @Override
-    public String update(ModelEntity model) {
-        ModelEntity entityOld = null;
+    @Transactional
+    public void deleteByBrand(Long idBrand) {
         try {
-            entityOld = modelRepository.getById(model.getId());
-            modelRepository.save(model);
-            return "update new Model from ( " + entityOld + " ) to ( " + model + " )";
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaDelete<ModelEntity> criteriaDelete = criteriaBuilder.createCriteriaDelete(ModelEntity.class);
+            Root<ModelEntity> root = criteriaDelete.from(ModelEntity.class);
+
+            criteriaDelete.where(criteriaBuilder.equal(root.get("brand").get("id"), idBrand));
+
+            entityManager.createQuery(criteriaDelete).executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error! Broken in ModelServiceImpl.update");
-            return "It wasn't possible to update Model! ( " + entityOld + " )";
+            System.out.println("Error in ModelServiceImpl.deleteByBrand! \nWith idBrand: " + idBrand);
+        }
+    }
+
+    @Override
+    public String update(ModelEntity entityNew) throws Exception {
+        ModelEntity entityOld = modelRepository.getById(entityNew.getId());
+        try {
+            modelRepository.save(entityNew);
+            return MessagePreFormatted.buildOkMsgModel(MessagePreFormatted.ActionType.UPDATE, entityNew);
+        } catch (Exception e) {
+            return MessagePreFormatted.buildKoMsgModel(MessagePreFormatted.ActionType.UPDATE, entityOld);
         }
     }
 
