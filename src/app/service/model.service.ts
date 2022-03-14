@@ -16,16 +16,16 @@ export class ModelService {
       return this.http.get<Response>(this.baseUrl + 'findAll');
     }
 
-    insert(model: Model) : Observable<any> {
-      return this.http.post(this.baseUrl + 'insert', model);
+    insert(model: Model) : Observable<Response> {
+      return this.http.post<Response>(this.baseUrl + 'insert', model);
     }
 
-    update(model: Model) : Observable<any> {
-      return this.http.put(this.baseUrl + 'put', model);
+    update(model: Model) : Observable<Response> {
+      return this.http.put<Response>(this.baseUrl + 'put', model);
     }
 
-    delete(id: any) : Observable<any> {
-      return this.http.delete(this.baseUrl + 'delete?id=' + id);
+    delete(id: any) : Observable<Response> {
+      return this.http.delete<Response>(this.baseUrl + 'delete?id=' + id);
     }
 
 }

@@ -13,3 +13,7 @@ html, body {
     color: gray;
     cursor: pointer;
 }
+
+.ngx-toastr {
+  width: 100% !important;
+}

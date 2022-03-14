@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Model } from 'src/app/model/Model';
-import { ModelService } from 'src/app/service/ModelService';
+
+import { ModelService } from 'src/app/service/model.service';
+import { NotificationService } from 'src/app/utility/notification.service'
 
 @Component({
   selector: 'app-model-table',
@@ -15,15 +17,17 @@ export class ModelTableComponent implements OnInit {
 
   models: Array<Model> = [];
 
-  constructor(private modelService: ModelService) { }
+  constructor(private modelService: ModelService, private notifyService : NotificationService) { }
 
   ngOnInit(): void {
     this.populateTable();
   }
 
   delete(prd: any): void {
-    this.modelService.delete(prd.id).subscribe();
-    this.populateTable();
+    this.modelService.delete(prd.id).subscribe((response: any) => {
+      this.populateTable();
+      this.notifyService.showInfo("", response.entity);
+    });
   }
 
   populateTable(): void {

@@ -28,4 +28,8 @@ export class BrandService {
     return this.http.delete(this.baseUrl + 'delete?id=' + id);
   }
 
+  checkIfHaveAssociationWithOwner(id: any) : Observable<any> {
+    return this.http.get(this.baseUrl + 'checkIfHaveAssociationWithOwner?id=' + id);
+  }
+
 }

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
-import { BrandService } from 'src/app/service/BrandService';
+import { BrandService } from 'src/app/service/brand.service';
 
 @Component({
   selector: 'app-brand-insert-form',
@@ -11,7 +11,7 @@ import { BrandService } from 'src/app/service/BrandService';
   styleUrls: ['./brand-insert-form.component.css']
 })
 export class BrandInsertFormComponent {
-  
+
   brand = {} as Brand;
   isDisabled: Boolean = true;
 

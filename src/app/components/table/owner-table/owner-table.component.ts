@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Owner } from 'src/app/model/Owner';
-import { OwnerService } from 'src/app/service/OwnerService';
+
+import { OwnerService } from 'src/app/service/owner.service';
+import { NotificationService } from 'src/app/utility/notification.service'
 
 @Component({
   selector: 'app-owner-table',
@@ -15,15 +17,17 @@ export class OwnerTableComponent implements OnInit {
 
   owners: Array<Owner> = [];
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(private ownerService: OwnerService, private notifyService : NotificationService) { }
 
   ngOnInit(): void {
     this.populateTable();
   }
 
   delete(prd: any): void {
-    this.ownerService.delete(prd.id).subscribe();
-    this.populateTable();
+    this.ownerService.delete(prd.id).subscribe((response: any) => {
+      this.populateTable();
+      this.notifyService.showInfo("Response:", response.entity);
+    });
   }
 
   populateTable(): void {

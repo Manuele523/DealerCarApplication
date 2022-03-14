@@ -4,7 +4,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 
 import { Owner } from 'src/app/model/Owner';
 
-import { OwnerService } from 'src/app/service/OwnerService';
+import { OwnerService } from 'src/app/service/owner.service';
 
 @Component({
   selector: 'app-owner-update-form',

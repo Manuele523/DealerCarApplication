@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
-import { BrandService } from 'src/app/service/BrandService';
+
+import { BrandService } from 'src/app/service/brand.service';
 
 @Component({
   selector: 'app-brand-update-form',

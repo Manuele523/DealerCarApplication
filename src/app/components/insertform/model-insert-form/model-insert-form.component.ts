@@ -4,8 +4,8 @@ import { Params, ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
 import { Model } from 'src/app/model/Model';
-import { BrandService } from 'src/app/service/BrandService';
-import { ModelService } from 'src/app/service/ModelService';
+import { BrandService } from 'src/app/service/brand.service';
+import { ModelService } from 'src/app/service/model.service';
 
 @Component({
   selector: 'app-model-insert-form',
