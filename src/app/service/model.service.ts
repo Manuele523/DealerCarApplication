@@ -28,4 +28,8 @@ export class ModelService {
       return this.http.delete<Response>(this.baseUrl + 'delete?id=' + id);
     }
 
+    checkIfHaveAssociationWithOwner(id: any) : Observable<any> {
+      return this.http.get(this.baseUrl + 'checkIfHaveAssociationWithOwner?id=' + id);
+    }
+
 }

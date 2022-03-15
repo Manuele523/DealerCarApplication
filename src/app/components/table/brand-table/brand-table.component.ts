@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,7 +31,7 @@ export class BrandTableComponent implements OnInit {
   }
 
   delete(prd: any): void {
-    this.brandService.checkIfHaveAssociationWithOwner(prd.id).subscribe((response: any) => {
+    this.brandService.checkIfHaveAssociationWithModel(prd.id).subscribe((response: any) => {
       if (response.entity != false) {
         if (response.entity.includes("010")) {
           this.notifyService.showWarning("", response.entity);
@@ -46,7 +46,7 @@ export class BrandTableComponent implements OnInit {
   populateTable(): void {
     this.brandService.findAll().subscribe((data: any) => {
       if (data && data.status == 200) {
-        this.brands = data.entity;
+        this.brands = data.entity ? data.entity : [];
       }
     });
   }
@@ -71,7 +71,7 @@ export class BrandTableComponent implements OnInit {
   `
 })
 export class NgbdModalContent {
-  
+
   @Input() brand: any;
 
   constructor(
@@ -82,7 +82,7 @@ export class NgbdModalContent {
 
   delete(): void {
     this.brandService.delete(this.brand.id).subscribe((response: any) => {
-      this.activeModal.close();  
+      this.activeModal.close();
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
         this.router.navigate(['/brand'])
       );
