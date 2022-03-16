@@ -28,20 +28,17 @@ public class OwnerController {
 
     @PostMapping("insert")
     public Response insert(@RequestBody OwnerDTO owner) {
-        ownerManager.insert(owner);
-        return Response.ok().build();
+        return Response.ok(ownerManager.insert(owner)).build();
     }
 
     @DeleteMapping("delete")
     public Response delete(@RequestParam("id") Long idOwner) {
-        ownerManager.delete(idOwner);
-        return Response.ok().build();
+        return Response.ok(ownerManager.delete(idOwner)).build();
     }
 
     @PutMapping("update")
     public Response update(@RequestBody OwnerDTO owner) {
-        ownerManager.update(owner);
-        return Response.ok().build();
+        return Response.ok(ownerManager.update(owner)).build();
     }
 
 }

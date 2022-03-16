@@ -12,10 +12,10 @@ public interface OwnerService {
 
     List<CarOwnerEntity> findAllCarOfOwner(Long idOwner);
 
-    void insert(OwnerEntity mapToEntity);
+    String insert(OwnerEntity mapToEntity);
 
-    void delete(Long idOwner);
+    String delete(Long idOwner);
 
-    void update(OwnerEntity mapToEntity);
+    String update(OwnerEntity mapToEntity);
 
 }

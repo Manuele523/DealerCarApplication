@@ -29,18 +29,18 @@ public class OwnerManagerImpl implements OwnerManager {
     }
 
     @Override
-    public void insert(OwnerDTO owner) {
-        ownerService.insert(OwnerMapper.mapToEntity(owner));
+    public String insert(OwnerDTO owner) {
+        return ownerService.insert(OwnerMapper.mapToEntity(owner));
     }
 
     @Override
-    public void delete(Long idOwner) {
-        ownerService.delete(idOwner);
+    public String delete(Long idOwner) {
+        return ownerService.delete(idOwner);
     }
 
     @Override
-    public void update(OwnerDTO owner) {
-        ownerService.update(OwnerMapper.mapToEntity(owner));
+    public String update(OwnerDTO owner) {
+        return ownerService.update(OwnerMapper.mapToEntity(owner));
     }
 
 }

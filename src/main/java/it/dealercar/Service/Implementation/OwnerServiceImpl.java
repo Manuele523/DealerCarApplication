@@ -6,6 +6,7 @@ import it.dealercar.Entity.OwnerEntity;
 import it.dealercar.Repository.CarOwnerRepository;
 import it.dealercar.Repository.OwnerRepository;
 import it.dealercar.Service.Interface.OwnerService;
+import it.dealercar.Utility.MessagePreFormatted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,18 +56,35 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void insert(OwnerEntity mapToEntity) {
-        ownerRepository.save(mapToEntity);
+    public String insert(OwnerEntity entity) {
+        try {
+            ownerRepository.save(entity);
+            return MessagePreFormatted.buildOkMsgOwner(MessagePreFormatted.ActionType.INSERT, entity);
+        } catch (Exception e) {
+            return MessagePreFormatted.buildKoMsgOwner(MessagePreFormatted.ActionType.INSERT, entity);
+        }
     }
 
     @Override
-    public void delete(Long idOwner) {
-        ownerRepository.deleteById(idOwner);
+    public String delete(Long idOwner) {
+        OwnerEntity oldOwner = ownerRepository.getById(idOwner);
+        try {
+            ownerRepository.deleteById(idOwner);
+            return MessagePreFormatted.buildOkMsgOwner(MessagePreFormatted.ActionType.DELETE, oldOwner);
+        } catch (Exception e) {
+            return MessagePreFormatted.buildKoMsgOwner(MessagePreFormatted.ActionType.DELETE, oldOwner);
+        }
     }
 
     @Override
-    public void update(OwnerEntity mapToEntity) {
-        ownerRepository.save(mapToEntity);
+    public String update(OwnerEntity entity) {
+        OwnerEntity oldOwner = ownerRepository.getById(entity.getId());
+        try {
+            ownerRepository.save(entity);
+            return MessagePreFormatted.buildOkMsgOwner(MessagePreFormatted.ActionType.UPDATE, entity);
+        } catch (Exception e) {
+            return MessagePreFormatted.buildKoMsgOwner(MessagePreFormatted.ActionType.UPDATE, oldOwner);
+        }
     }
 
 }

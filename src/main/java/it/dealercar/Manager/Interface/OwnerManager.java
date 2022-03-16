@@ -11,10 +11,10 @@ public interface OwnerManager {
 
     List<CarOwnerDTO> findAllCarOfOwner(Long idOwner);
 
-    void insert(OwnerDTO owner);
+    String insert(OwnerDTO owner);
 
-    void delete(Long idOwner);
+    String delete(Long idOwner);
 
-    void update(OwnerDTO owner);
+    String update(OwnerDTO owner);
 
 }
