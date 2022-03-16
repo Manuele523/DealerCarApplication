@@ -10,7 +10,7 @@ public interface BrandManager {
 
     String insert(BrandDTO brand) throws Exception;
 
-    Boolean delete(Long idBrand) throws Exception;
+    String delete(Long idBrand) throws Exception;
 
     String update(BrandDTO brand) throws Exception;
 

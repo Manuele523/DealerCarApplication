@@ -34,15 +34,14 @@ public class BrandManagerImpl implements BrandManager {
     }
 
     @Override
-    public Boolean delete(Long idBrand) throws Exception {
+    public String delete(Long idBrand) throws Exception {
         try {
             modelService.deleteByBrand(idBrand);
-            brandService.delete(idBrand);
-            return true;
+            return brandService.delete(idBrand);
         } catch (Exception e) {
             System.out.println("Error in BrandManagerImpl.delete!");
-            return false;
         }
+        return null;
     }
 
     @Override
