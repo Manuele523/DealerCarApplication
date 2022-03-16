@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Params, ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
@@ -7,6 +8,7 @@ import { Model } from 'src/app/model/Model';
 
 import { BrandService } from 'src/app/service/brand.service';
 import { ModelService } from 'src/app/service/model.service';
+import { NotificationService } from 'src/app/utility/notification.service';
 
 @Component({
   selector: 'app-model-update-form',
@@ -18,16 +20,21 @@ export class ModelUpdateFormComponent implements OnInit {
   brands: Array<Brand> = [];
   models: Array<Model> = [];
   model = {} as Model;
-  isDisabled: Boolean = true;
+  isDisabledOption: Boolean = true;
 
   modelForm = new FormGroup({
     id: new FormControl('', Validators.required),
-    code: new FormControl({ value: '', disabled: this.isDisabled }, Validators.required),
-    title: new FormControl({ value: '', disabled: this.isDisabled }, Validators.required),
-    brandId: new FormControl({ value: '', disabled: this.isDisabled }, Validators.required)
+    code: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    brandId: new FormControl('', Validators.required)
   });
 
-  constructor(private modelService: ModelService, private brandService: BrandService, private route:  ActivatedRoute) { }
+  constructor(
+    private modelService: ModelService,
+    private brandService: BrandService,
+    private route:  ActivatedRoute,
+    private notifyService: NotificationService
+  ) { }
 
   update(): void {
     var formVal = this.modelForm.value;
@@ -46,7 +53,15 @@ export class ModelUpdateFormComponent implements OnInit {
           title: tmpBrand.title,
         }
       }
-      this.modelService.update(this.model).subscribe();
+      this.modelService.update(this.model).subscribe((response: any) => {
+        if (response.entity.includes("Error")) {
+          this.notifyService.showWarning("", response.entity);
+        } else {
+          this.notifyService.showSuccess("", response.entity);
+          this.populateOption();
+          this.modelForm.reset();
+        }
+      });
     }
   }
 
@@ -64,16 +79,24 @@ export class ModelUpdateFormComponent implements OnInit {
     }
   }
 
+  setToActive() : void {
+    this.isDisabledOption = false;
+  }
+
   ngOnInit(): void {
+    this.modelForm.disable();
     this.brandService.findAll().subscribe((data: any) => {
       if ( data && data.status == 200) {
-        this.brands = data ? data : [];
+        this.brands = data.entity ? data.entity : [];
       }
     });
+    this.populateOption();
+  }
 
+  populateOption() : void {
     this.modelService.findAll().subscribe((data: any) => {
       if ( data && data.status == 200) {
-        this.brands = data.entity ? data.entity : [];
+        this.models = data.entity ? data.entity : [];
 
         this.route.queryParams.subscribe((params: any) => {
           if ( params != null && params != undefined) {

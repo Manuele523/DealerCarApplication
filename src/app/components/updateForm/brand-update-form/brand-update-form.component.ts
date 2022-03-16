@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
 
 import { BrandService } from 'src/app/service/brand.service';
+import { NotificationService } from 'src/app/utility/notification.service';
 
 @Component({
   selector: 'app-brand-update-form',
@@ -24,7 +26,11 @@ export class BrandUpdateFormComponent implements OnInit {
     title: new FormControl({ value: '', disabled: this.isDisabled }, Validators.required),
   });
 
-  constructor(private brandService: BrandService, private route:  ActivatedRoute) { }
+  constructor(
+    private brandService: BrandService,
+    private route:  ActivatedRoute,
+    private notifyService: NotificationService
+  ) { }
 
   update(): void {
     var formVal = this.brandForm.value;
@@ -37,8 +43,14 @@ export class BrandUpdateFormComponent implements OnInit {
         title: formVal.title
       }
     }
-    this.brandService.update(this.brand).subscribe((data: any) => {
-      this.response = data.entity;
+    this.brandService.update(this.brand).subscribe((response: any) => {
+      if (response.entity.includes("Error")) {
+        this.notifyService.showWarning("", response.entity);
+      } else {
+        this.notifyService.showSuccess("", response.entity);
+        this.populateOption();
+        this.brandForm.reset();
+      }
     });
   }
 
@@ -56,23 +68,28 @@ export class BrandUpdateFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.brandService.findAll().subscribe((data: any) => {
-      if ( data && data.status == 200) {
-        this.brands = data.entity ? data.entity : [];
+    this.populateOption();
+  }
 
-        this.route.queryParams.subscribe((params: any) => {
-          if ( params != null && params != undefined)
-            var tmpBrand = this.brands.find(x => x.id == params.id);
-            if (tmpBrand != null && tmpBrand != undefined) {
-              this.brandForm.setValue({
-                id: tmpBrand.id,
-                code: tmpBrand.code,
-                title: tmpBrand.title
-              });
-            this.brandForm.enable();
-          }
-        });
-      }
+  populateOption() : void {
+    this.brandService.findAll().subscribe((data: any) => {
+        if ( data && data.status == 200) {
+          this.brands = data.entity ? data.entity : [];
+
+          this.route.queryParams.subscribe((params: any) => {
+            if ( params != null && params != undefined) {
+              var tmpBrand = this.brands.find(x => x.id == params.id);
+              if (tmpBrand != null && tmpBrand != undefined) {
+                this.brandForm.setValue({
+                  id: tmpBrand.id,
+                  code: tmpBrand.code,
+                  title: tmpBrand.title
+                });
+                this.brandForm.enable();
+              }
+            }
+          });
+        }
     });
   }
 }

@@ -76,6 +76,7 @@ export class NgbdModalContent {
 
   constructor(
     public activeModal: NgbActiveModal,
+    private notifyService: NotificationService,
     private modelService: ModelService,
     private router: Router
   ) { }
@@ -86,6 +87,7 @@ export class NgbdModalContent {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
         this.router.navigate(['/model'])
       );
+      this.notifyService.showSuccess("", response.entity);
     });
   }
 }

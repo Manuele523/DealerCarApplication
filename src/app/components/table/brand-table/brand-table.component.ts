@@ -77,6 +77,7 @@ export class NgbdModalContent {
   constructor(
     public activeModal: NgbActiveModal,
     private brandService: BrandService,
+    private notifyService: NotificationService,
     private router: Router
   ) { }
 
@@ -86,6 +87,7 @@ export class NgbdModalContent {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
         this.router.navigate(['/brand'])
       );
+      this.notifyService.showSuccess("", response.entity);
     });
   }
 }

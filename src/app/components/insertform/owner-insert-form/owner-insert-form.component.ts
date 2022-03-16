@@ -5,6 +5,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Owner } from 'src/app/model/Owner';
 
 import { OwnerService } from 'src/app/service/owner.service';
+import { NotificationService } from 'src/app/utility/notification.service';
 
 @Component({
   selector: 'app-owner-insert-form',
@@ -23,7 +24,11 @@ export class OwnerInsertFormComponent {
     mail: new FormControl('', Validators.required)
   });
 
-  constructor(private ownerService: OwnerService, private route:  ActivatedRoute) { }
+  constructor(
+    private ownerService: OwnerService,
+    private route:  ActivatedRoute,
+    private notifyService: NotificationService
+  ) { }
 
   save(): void {
     var formVal = this.ownerForm.value;
@@ -35,7 +40,14 @@ export class OwnerInsertFormComponent {
         birthdate: formVal.birthdate,
         mail: formVal.mail
       }
-      this.ownerService.insert(this.owner);
+      this.ownerService.insert(this.owner).subscribe((response: any) => {
+        if (response.entity.includes("Error")) {
+          this.notifyService.showWarning("", response.entity);
+        } else {
+          this.notifyService.showSuccess("", response.entity);
+          this.ownerForm.reset();
+        }
+      });
     }
   }
 }

@@ -3,7 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
+
 import { BrandService } from 'src/app/service/brand.service';
+import { NotificationService } from 'src/app/utility/notification.service';
 
 @Component({
   selector: 'app-brand-insert-form',
@@ -20,18 +22,29 @@ export class BrandInsertFormComponent {
     title: new FormControl('', Validators.required),
   });
 
-  constructor(private brandService: BrandService, private route: ActivatedRoute) { }
+  constructor(
+    private brandService: BrandService,
+    private route: ActivatedRoute,
+    private notifyService: NotificationService
+  ) { }
 
   save(): void {
     var formVal = this.brandForm.value;
 
     if (formVal != null || formVal != undefined) {
       this.brand = {
+        id: undefined,
         code: formVal.code,
         title: formVal.title
       }
     }
-    this.brandService.insert(this.brand);
+    this.brandService.insert(this.brand).subscribe((response: any) => {
+      if (response.entity.includes("Error")) {
+        this.notifyService.showWarning("", response.entity);
+      } else {
+        this.notifyService.showSuccess("", response.entity);
+        this.brandForm.reset();
+      }
+    });
   }
-
 }

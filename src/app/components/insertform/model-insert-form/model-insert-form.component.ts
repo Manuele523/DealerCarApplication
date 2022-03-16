@@ -4,8 +4,10 @@ import { Params, ActivatedRoute } from '@angular/router';
 
 import { Brand } from 'src/app/model/Brand';
 import { Model } from 'src/app/model/Model';
+
 import { BrandService } from 'src/app/service/brand.service';
 import { ModelService } from 'src/app/service/model.service';
+import { NotificationService } from 'src/app/utility/notification.service';
 
 @Component({
   selector: 'app-model-insert-form',
@@ -24,7 +26,12 @@ export class ModelInsertFormComponent implements OnInit {
     brandId: new FormControl('', Validators.required)
   });
 
-  constructor(private modelService: ModelService, private brandService: BrandService, private route:  ActivatedRoute) { }
+  constructor(
+    private modelService: ModelService,
+    private brandService: BrandService,
+    private route:  ActivatedRoute,
+    private notifyService: NotificationService
+  ) { }
 
   save(): void {
     var formVal = this.modelForm.value;
@@ -40,7 +47,14 @@ export class ModelInsertFormComponent implements OnInit {
           title: tmpBrand.title,
         }
       }
-      this.modelService.insert(this.model).subscribe();
+      this.modelService.insert(this.model).subscribe((response: any) => {
+        if (response.entity.includes("Error")) {
+          this.notifyService.showWarning("", response.entity);
+        } else {
+          this.notifyService.showSuccess("", response.entity);
+          this.modelForm.reset();
+        }
+      });
     }
   }
 

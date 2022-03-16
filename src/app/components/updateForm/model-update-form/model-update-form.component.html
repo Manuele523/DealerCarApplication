@@ -1,33 +1,38 @@
 
-<select #selectListModel class="form-control" style="width: 15%" (change)="onClick($event)">
-  <option *ngFor="let model of models" value="{{model.id}}">{{ model.title }}</option>
+<select #selectListMode [disabled]="isDisabledOption" class="form-control input-sm" style="width: 15%" (change)="onClick($event)">
+  <optgroup *ngFor="let brand of brands" label= {{brand.title}} >
+    <ng-container *ngFor="let model of models; let isLast = last">
+      <option *ngIf="model.brand.id === brand.id" value={{model.id}} >
+        {{model.title}} {{isLast ? setToActive() : ''}}
+      </option>
+    </ng-container>
+  </optgroup>
 </select>
 
 <br>
 
 <form [formGroup]="modelForm" (ngSubmit)="update()">
   <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
       <label for="inputId">Id</label>
       <input type="number" class="form-control" id="inputId" formControlName="id" readOnly>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
       <label for="inputCode">Code</label>
       <input type="text" class="form-control" id="inputCode" formControlName="code">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputTitle">Title</label>
-      <input type="text" class="form-control" id="inputTitle" formControlName="title">
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputBrand">Brand</label>
-      <select class="form-control" id="inputBrand" formControlName="brandId">
-        <option *ngFor="let brand of brands" value="{{ brand.id }}">{{ brand.title }}</option>
-      </select>
+      <label for="inputTitle">Title</label>
+      <input type="text" class="form-control" id="inputTitle" formControlName="title">
     </div>
     <div class="form-group col-md-6">
+      <label for="inputBrand">Brand</label>
+      <select class="form-control" id="inputBrand" formControlName="brandId">
+        <option value="null"></option>
+        <option *ngFor="let brand of brands" value="{{ brand.id }}">{{ brand.title }}</option>
+      </select>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Confirm</button>
