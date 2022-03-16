@@ -3,7 +3,6 @@
     <div class="form-group col-md-4">
       <label for="inputBrand">Brand</label>
       <select class="form-control" id="inputBrand" formControlName="brandId">
-        <option [ngValue]="null" selected>SELECT BRAND</option>
         <option *ngFor="let brand of brands" value="{{ brand.id }}">{{ brand.title }}</option>
       </select>
     </div>
